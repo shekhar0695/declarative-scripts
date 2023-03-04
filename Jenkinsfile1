@@ -19,7 +19,6 @@ pipeline {
             }
         }
         stage('DEPLOY') {
-            agent {label 'master'}
             steps{
                 sh '''
                 echo "deploy stage"
