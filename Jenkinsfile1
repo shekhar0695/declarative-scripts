@@ -3,13 +3,15 @@ pipeline {
     stages {
         stage('BUILD') {
             agent {label 'agent2'}
-            steps{
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+               steps{
                 sh '''
                 whoami
                 pwd
                 '''
             }
         }
+     }
         stage('TEST') {
             agent {label 'agent3'}
             steps{
@@ -19,7 +21,7 @@ pipeline {
             }
         }
         stage('DEPLOY') {
-            agent {label 'master'}
+            agent {label 'agent2'}
             steps{
                 sh '''
                 echo "deploy stage"
@@ -27,4 +29,4 @@ pipeline {
             }
         }
     }
-}
+}   
