@@ -1,0 +1,22 @@
+pipeline {
+    agent none
+    stages {
+        stage('BUILD') {
+            agent 'label "agent1"'
+            steps{
+                sh '''
+                whoami
+                pwd
+                '''
+            }
+        }
+        stage('TEST') {
+            agent 'label "agent2"'
+            steps{
+                sh '''
+                echo "test stage"
+                '''
+            }
+        }
+    }
+}
