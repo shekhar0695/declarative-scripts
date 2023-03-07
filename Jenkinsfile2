@@ -1,29 +1,22 @@
 pipeline {
-    agent any
-    stages {
-        stage('BUILD'){
-            steps{
-                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE' {
-                    sh '''
-                    echo "this is build stage"
-                    '''
-                    exit1
-                    }
-                )
-            }
+    agent none
+    triggers {
+        cron 'H/5 * * * *'
         }
-
-        stage('TEST') {
-            steps {
+    stages {
+        stage('build') {
+            agent {label 'agent1'}
+            steps{
                 sh '''
-                echo "this is test stage"
+                echo "this is build stage"
                 '''
             }
         }
-        stage('DEPLOY') {
-            steps {
+        stage('deploy') {
+            agent {label 'agent2'}
+            steps{
                 sh '''
-                echo "this is deploy stage"
+                pwd
                 '''
             }
         }
