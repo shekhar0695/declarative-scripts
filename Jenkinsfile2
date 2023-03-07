@@ -5,7 +5,7 @@ pipeline {
         }
     stages {
         stage('build') {
-            agent {label 'agent1'}
+            agent {label 'agent2'}
             steps{
                 sh '''
                 echo "this is build stage"
